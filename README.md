@@ -313,3 +313,31 @@ This renders the `index.html` file that will be used to interact with the backen
 **Throws**
 
 - `403` if the user is not logged in
+
+
+API ROUtes
+
+
+
+GET /api/comments/authir = username - Get comments of the author
+GET /api/comments/:freetId - Get comments on the freet
+Get /api/agree/freet - Get all agreed on freet
+
+POST /api/comments/author/:freetId - Post comments by author on freetId
+POST /api/followers - Post to follow another person
+POST /api/agree/freet/author - Post agree made by authr on freet
+POST /api/disagree/freet/author - Post agree made by authr on freet
+
+DELETE /api/agree/freet/author- Delet agree made by author on freet
+DELETE /api/disagree/freet/author- Delete disagree made by author on freet
+DELETE /api/comments/author - Delete a comment by author
+DELETE /api/users?:user - Delete user
+
+
+
+
+I will more woth alot of details. Tryeing to finish the backend implementation of one feature. 
+   
+
+
+
