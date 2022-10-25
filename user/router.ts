@@ -4,7 +4,7 @@ import FreetCollection from '../freet/collection';
 import UserCollection from './collection';
 import * as userValidator from '../user/middleware';
 import * as util from './util';
-
+import TimelimitCollection from '../timelimit/collection';
 const router = express.Router();
 
 /**
@@ -34,6 +34,24 @@ router.post(
       req.body.username, req.body.password
     );
     req.session.userId = user._id.toString();
+    /*const twentyMinutes = 60000  * 20  // 1 minute equal 60,000 ms. We want not more than 20 mins
+    const day = 1440*60000
+    const todayDate = new Date();
+    const available = await TimelimitCollection.findOne(req.body.username);
+    const initialDate = available.startTime;
+    const timeTaken = available.elapsedTime;
+    const differenceTimeLogins = Math.round(Math.abs(todayDate.getTime() - initialDate.getTime()));
+    if (differenceTimeLogins > day) {
+      TimelimitCollection.deleteOne(req.body.username)
+      TimelimitCollection.addOne(req.body.username, todayDate, 0)
+
+    } */
+
+
+
+
+
+    // call time code
     res.status(201).json({
       message: 'You have logged in successfully',
       user: util.constructUserResponse(user)
@@ -55,8 +73,23 @@ router.delete(
   [
     userValidator.isUserLoggedIn
   ],
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     req.session.userId = undefined;
+    //
+    //const username = req.body.username;
+    /*const twentyMinutes = 60000  * 20  // 1 minute equal 60,000 ms. We want not more than 20 mins
+    const day = 1440*60000
+    const todayDate = new Date();
+    const available = await TimelimitCollection.findOne(req.body.username);
+    const initialDate = available.startTime;
+    const differenceTimeLogins = Math.round(Math.abs(todayDate.getTime() - initialDate.getTime()));
+    const timeTaken = available.elapsedTime + differenceTimeLogins;
+    TimelimitCollection.deleteOne(req.body.username);
+    TimelimitCollection.addOne(req.body.username, todayDate, timeTaken);   // startDate was the last log out
+    */
+
+   
+
     res.status(200).json({
       message: 'You have been logged out successfully.'
     });

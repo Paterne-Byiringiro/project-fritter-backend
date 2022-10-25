@@ -45,6 +45,21 @@ const formsAndHandlers = {
   'create-comment': createComment,
   'edit-comment': editComment,
   'delete-comment': deleteComment,
+  'comments-on-freet': CommentsOnFreet,
+  //'comments-author-on-freet': CommentsOnFreetByAuthor,
+
+
+  'view-all-likes': viewAllLikes,
+  'view-likes-by-author-id': viewLikesByAuthorId,
+  'create-like': createLike,
+  'delete-like': deleteLike,
+  'likes-on-freet': likesOnFreet,
+
+  'view-all-dislikes': viewAllDislikes,
+  'view-dislikes-by-author-id': viewDislikesByAuthorId,
+  'create-dislike': createDislike,
+  'delete-dislike': deleteDislike,
+  'dislikes-on-freet': dislikesOnFreet,
 };
 
 // Attach handlers to forms

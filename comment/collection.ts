@@ -56,16 +56,25 @@ class CommentCollection {
   }
 
   /**
-   * Get all the comments in by given author
+   * Get all the comments in by given author(authorId)
    *
-   * @param {string} username - The username of author of the comment
+   * @param {string} authorId - The authorId of the comment
    * @return {Promise<HydratedDocument<Comment>[]>} - An array of all of the comments
    */
-  static async findAllByAuthorId(authorId: string): Promise<Array<HydratedDocument<Comment>>> {
+  static async findAllByAuthorId(authorId: Types.ObjectId | string): Promise<Array<HydratedDocument<Comment>>> {
     return CommentModel.find({authorId: authorId}).populate('authorId');
   }
 
-  
+  /**
+   * Get all the comments in by given author (username)
+   *
+   * @param {string} username - The username of author of the comments
+   * @return {Promise<HydratedDocument<Comment>[]>} - An array of all of the comments
+   */
+   static async findAllByUsername(username: string): Promise<Array<HydratedDocument<Comment>>> {
+    const author = await UserCollection.findOneByUsername(username);
+    return CommentModel.find({authorId: author._id}).populate('authorId');
+  }
   /////
   /////
   ////   I ADDED THIS FUNCTION
@@ -73,13 +82,33 @@ class CommentCollection {
   /////
   /**
    * Get all the comments on the freet
-   * @param {Freet} freetId_ The freet
+   * @param {FreetId_} freetId_ The freet
    * @return {Promise<HydratedDocument<Comment>[]>} - An array of all of the comments
    */
   static async findAllByFreet(freetId_: Types.ObjectId | string): Promise<Array<HydratedDocument<Comment>>> {
     const freet = await FreetCollection.findOne(freetId_);
     return CommentModel.find({freetId: freet._id}).populate('freetId');
   }
+
+  /**
+   * Get all the comments on a freet by  given author 
+   *
+   * @param {string} authorId - The authorId of the like
+   * @param {Freet} freetId_ - The freet where the like is
+   * 
+   * @return {Promise<HydratedDocument<Comment>[]>} - An array of all of the comments
+   */
+ static async findCommentByAuthorAndFreetId(authorId: Types.ObjectId | string, freetId_:Types.ObjectId | string): Promise<Array<HydratedDocument<Comment>>> {
+  return CommentModel.find({authorId: authorId,freetId: freetId_}).populate('authorId');
+}
+
+
+   //Number of comments on a freet
+   //Not used in API routes
+ static async numberCommentsOnFreet(freetId_: Types.ObjectId | string) : Promise<number>  {
+  const comments =  await CommentCollection.findAllByFreet(freetId_);
+  return comments.length
+ }
 
   /**
    * Update a comment with the new content

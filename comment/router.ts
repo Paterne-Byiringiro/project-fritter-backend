@@ -16,35 +16,46 @@ const router = express.Router();
  * @return {CommentResponse[]} - A list of all the comments sorted in descending
  *                      order by date modified
  */
+
+
+
+////////
 router.get(
   '/comments',
-  [
-  ],
   async (req: Request, res: Response, next: NextFunction) => {
-  const allComments = await CommentCollection.findAll();
-  const response = allComments.map(util.constructCommentResponse);
-  res.status(200).json(response);
-  }
+    // Check if authorId query parameter  and freetId were supplied
+
+    if (req.query.authorId !== undefined && req.query.freetId !== undefined) {
+      const comments = await CommentCollection.findCommentByAuthorAndFreetId(req.query.authorId as string, req.query.freetId as string);  // I may need to change something
+      const response = comments.map(util.constructCommentResponse);
+      res.status(200).json(response);
+    } else if (req.query.authorId !== undefined)  {
+      
+      
+        const allComments = await CommentCollection.findAllByAuthorId(req.query.authorId as string);  // I may need to change something
+        const response = allComments.map(util.constructCommentResponse);
+        res.status(200).json(response);
+ 
+    } else if (req.query.freetId !== undefined) {
+     
+        const comments = await CommentCollection.findAllByFreet(req.query.freetId as string);
+        res.status(200).json(comments);
+    
+
+    } else {
+     
+      const allComments = await CommentCollection.findAll();
+      const response = allComments.map(util.constructCommentResponse);
+      res.status(200).json(response);
+        }
+
+    }
+
 );
 
-/**
- * Get all the comments by author
- *
- * @name GET /api/comments/authorId
- *
- * @return {CommentResponse[]} - A list of all the comments sorted in descending
- *                      order by date modified
- */
- router.get(
-    '/comments/:authorId?',
-    [
-    ],
-    async (req: Request, res: Response, next: NextFunction) => {
-    const allComments = await CommentCollection.findAllByAuthorId(req.params.authorId);
-    const response = allComments.map(util.constructCommentResponse);
-    res.status(200).json(response);
-    }
-  );
+/////////
+
+
 
 /**
  * Create a new comment.
@@ -86,7 +97,7 @@ router.post(
  * @throws {404} - If the commentId is not valid
  */
 router.delete(
-  '/:commentId?',
+  '/comments/:commentId?',
   [
     userValidator.isUserLoggedIn,
     commentValidator.isCommentExists,
