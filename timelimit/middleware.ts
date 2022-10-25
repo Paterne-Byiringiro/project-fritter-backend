@@ -20,6 +20,9 @@ const isTimelimitExists = async (req: Request, res: Response, next: NextFunction
   next();
 };
 
+/**
+ * Always allows operations to continue or not
+ */
 
 export {
     isTimelimitExists
