@@ -5,9 +5,12 @@
   <meta name="author" content="6.170 Staff">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="/scripts/favorite.js"></script>
   <script src="/scripts/freet.js"></script>
   <script src="/scripts/user.js"></script>
   <script src="/scripts/index.js"></script>
+  
+
 </head>
 
 <body>
@@ -261,6 +264,40 @@
           </div>
           <input type="submit" value="Delete Dislike">
         </form>
+
+
+
+        <form id="view-favorites-by-author">
+          <h3>View Favorites By Author</h3>
+          <div>
+            <label for="author">Author:</label>
+            <input id="author" name="author">
+          </div>
+          <input type="submit" value="View Favorites By Author">
+        </form>
+
+        <form id="create-favorite">
+          <h3>Create Favorite</h3>
+          <div>
+            <label for="name">Name:</label>
+            <textarea id="name" name="name"></textarea>
+          </div>
+          <div>
+            <label for="url">URL:</label>
+            <textarea id="url" name="url"></textarea>
+          </div>
+          <input type="submit" value="Create Favorite">
+        </form>
+
+        <form id="delete-favorite">
+          <h3>Delete Favorite</h3>
+          <div>
+            <label for="id">ID:</label>
+            <input id="id" name="id">
+          </div>
+          <input type="submit" value="Delete Favorite">
+        </form>
+
 
     </div>
     </section>

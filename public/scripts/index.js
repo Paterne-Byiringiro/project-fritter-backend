@@ -60,6 +60,11 @@ const formsAndHandlers = {
   'create-dislike': createDislike,
   'delete-dislike': deleteDislike,
   'dislikes-on-freet': dislikesOnFreet,
+
+  'view-favorites-by-author': viewFavoritesByAuthor,
+  'create-favorite': createFavorite,
+  'delete-favorite': deleteFavorite,
+
 };
 
 // Attach handlers to forms
